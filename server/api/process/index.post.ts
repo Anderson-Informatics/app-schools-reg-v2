@@ -158,7 +158,7 @@ export default defineEventHandler(async (event) => {
     let submission: { [key: string]: string } = {};
 
     // This is where the more complicated processing happens
-    let name_field_count = 1;
+    let name_field_count = 1; // This is used to sequentially number name fields
     application.forEach((item) => {
       if (item.options) {
         if (item.options.length === 1) {
@@ -175,14 +175,14 @@ export default defineEventHandler(async (event) => {
           });
           submission[questionTitles[item.formFieldId]] = val;
         }
-      } else if (item.fieldType === "ADDRESS") {
+      } else if (item.fieldType === "address") {
         submission["Address1"] = item.address1 ?? "";
         submission["Address2"] = item.address2 ?? "";
         submission["City"] = item.city ?? "";
         submission["State"] = item.region ?? "";
         submission["Zip"] = item.postalCode ?? "";
         submission["Country"] = item.country ?? "";
-      } else if (item.fieldType === "NAME") {
+      } else if (item.fieldType === "name") {
         submission[`FirstName${name_field_count}`] = item.firstName ?? "";
         submission[`LastName${name_field_count}`] = item.lastName ?? "";
         name_field_count++;
