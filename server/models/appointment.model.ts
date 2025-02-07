@@ -1,7 +1,11 @@
 import mongoose from "mongoose";
 
 const schema: mongoose.Schema = new mongoose.Schema({
-  _id: mongoose.Types.ObjectId,
+  _id: {
+    type: mongoose.Schema.Types.ObjectId,
+    required: true,
+    auto: true,
+  },
   submissionId: String,
   appoinmtmentDate: String,
   appointmentTime: String,
