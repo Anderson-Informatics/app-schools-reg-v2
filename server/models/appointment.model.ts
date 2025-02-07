@@ -7,7 +7,7 @@ const schema: mongoose.Schema = new mongoose.Schema({
     auto: true,
   },
   submissionId: String,
-  appoinmtmentDate: String,
+  appointmentDate: String,
   appointmentTime: String,
   dateId: String,
   groupId: String,

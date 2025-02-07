@@ -192,7 +192,7 @@ export default defineEventHandler(async (event) => {
     });
 
     // Return the application data
-    return submission;
+    return response;
   } catch (error: any) {
     console.log(`${error.status} - ${error.data.messages[0]}`);
     return { message: `${error.status} - ${error.data.messages[0]}` };
