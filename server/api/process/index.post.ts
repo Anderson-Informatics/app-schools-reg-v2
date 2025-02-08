@@ -130,13 +130,92 @@ export default defineEventHandler(async (event) => {
       "21d6c64f-bb4e-45b8-a0e4-6239a814ebf8": "GRADEXXUPDATE",
       "cd97c9b4-9cfd-4ed0-abd0-7829f7ee95d3": "MONTESSORI",
     };
-    const cogatTitles = {};
+    const cogatTitles = {
+      "62573409-2c63-491d-8e5b-f7a9e3816670": "FullName",
+      "1b761720-2a80-41ac-961e-d3f02f0d48fe": "FullNameConfirm",
+      "0c5db274-c2a0-46e6-85ea-9e8c861bfac5": "Communication",
+      "a6784ffb-11a4-40a1-8b38-f08bf04ba6aa": "Grade",
+      "c881b44e-1279-4cfa-b636-d3dcb0605c3a": "ParentName",
+      "c1250d35-7be4-4f39-8ca0-5ff9d4df1e94": "ParentPhoneNumber",
+      "1c03003a-556c-4349-833d-30bd59457d15": "ParentPhoneNumberAlt",
+      "accb041c-4104-44b0-b65d-91bc7b7f90e1": "ParentEmailAddress",
+      "58f8d8db-832d-41e4-808b-05564c9e7ade": "ParentEmailAddressAlt",
+      "3530dd2d-5983-4b30-99a3-148f09e5136d": "DOB",
+      "e826729c-7374-4d99-8ae3-1fc2457a0028": "Address",
+      "ff93f332-e3d6-45d5-8734-3104dcf56fb7": "Gender",
+      "63d8d522-aba1-443e-9a3d-2b5d0c090cb2": "IEPor504",
+      "077ca2d5-1b96-48a6-b6e5-256a67e7c6bc": "DPSCD",
+      "e8daf2c9-a764-4998-9bc2-c40f2027ea79": "StudentNumber",
+      "6c72f6de-0e51-4bbe-95ed-3e1993bc6a5c":
+        "Please re-enter the student's DPSCD Student ID number.",
+      "4b8e0616-5401-448c-8929-32bfde660a61": "DPSCDSchool",
+      "c9a4f05d-c6c1-4483-ab80-e67cf306d514": "SEMCOG",
+      "bda45a45-6c8c-4087-9af6-ad18a285e790": "OODSchool",
+      "d0b043df-0f32-4b7e-bbe4-1af96401644a": "OtherSchool",
+      "9482d43f-ed60-4967-8c37-89d79c7d6d5c": "OtherSchoolLocation",
+      "24a99e02-f113-4a16-9fed-798baff2ea25": "FirstChoiceSchool",
+      "f8e42050-c8de-4ef4-9eb0-809142e6c438": "SecondChoiceSchool",
+      "dba8d3cb-4693-492d-8726-030dfe911927": "ThirdChoiceSchool",
+      "cf9edb6d-9d2e-4bd7-9b9f-6c7fa113ec75": "DescribeSibmings",
+      "258cd1ca-5e63-4389-a5eb-50db9646d77e": "SiblingAttendingDescription",
+      "a7e2b74f-49ee-4461-a49f-8a5d4eb4d642": "SiblingAttendingSchools",
+      "e084ecd4-2dc0-487a-8f47-426ec6d1c371": "SiblingEdison",
+      "b83b6b75-e8a4-49ca-8777-6c72599e8fd7": "SiblingEdmonson",
+      "40c825ae-d0ee-4d07-96d9-20f970773a1c": "SiblingPalmer",
+      "205ce82e-7b64-4267-823f-83ab183114e4": "SiblingMarygrove",
+      "3e1b90fe-721f-4c66-a21b-a53e981f6c65":
+        "SiblingApplyingTogetherDescription",
+      "e52b727d-8889-4166-aae5-064ab397a55e": "SiblingApplyingTogether",
+      "9d74a4fa-a15c-4be7-8648-85ac41ee7a04": "ExamConfirmation1",
+      "759aa33f-2990-4fad-9eb9-454d242825e1": "BLANK",
+      "d8d983c8-5311-494c-a3f8-37d4c5f33786": "ChryslerExpectations",
+      "a4b4c1ac-45e4-4048-bd3e-d3417e89abe6": "ExamConfirmation2",
+      "c662d859-01b5-45cd-a707-758ae8ebe062": "EdisonAltGradeOption",
+      "d85e1a6b-c394-4ed2-8d4d-2760e3b7582f": "ExamConfirmation3",
+      "3751845d-9493-4e7d-9885-4cb6a6ff7ce4":
+        "I have read and understand the FLICS scholar and parent expectations",
+      "d43c2791-cb9d-418d-8914-9d09c5d288fd": "OtherLanguage",
+      "d24f58e7-7e46-4255-af35-321274a1c799": "OtherLanguageList",
+      "5c15717c-3493-4b1c-9065-64b33e5bf9e0": "LanguageFirstChoice",
+      "8ea0fba4-ee30-4ee7-a344-68788dc663c6": "LanguageSecondChoice",
+      "fec10272-3e12-40e7-9626-38c4eee8f686": "LanguageThirdChoice",
+      "e5ca8a6d-4feb-4295-91dc-be85d8e00344": "PreviousMontessori",
+      "87b8593e-16a1-4ea9-a777-c1057ccbe72b": "PreviousMontessoriExperience",
+      "8f4784ef-81c6-42ef-981b-9f4db24a245d": "PreviousMontessoriEvidence",
+      "73589ef5-7ff7-4990-bccd-8278b02cf7c5": "PreviousMontessoriSchool",
+      "3c8090f7-1045-42f0-90e2-8e5c1866823d": "PreviousMontessoriSchoolPhone",
+      "23628288-0957-4804-a618-16e59fc74231": "PreviousMontessoriContactPhone",
+      "b0f6a139-34c3-49ed-9e6f-b14868a79087": "PreviousMontessoriContactEmail",
+      "8283470c-d542-4eae-a2b8-e7e180e59526": "RequestMontessoriProof",
+      "9bb62593-b2f7-49d5-aa90-136f30605d0e": "IFAPPLICABLE",
+      "10a4ec50-ff78-40bb-88f9-21ec3adea15e": "PreviousMontessoriDocumentation",
+      "a04d38dc-87c7-4e45-a819-d4bf3013ca61":
+        "PreviousMontessoriDocumentationDescribe",
+      "281a6e17-db99-41aa-916d-8e488fdfea2a": "PreviousMontessoriHomeschool",
+      "25d1ab57-f3ce-44b8-86e1-3ef1f529ccbc":
+        "PreviousMontessoriHomeschoolDescribe",
+      "4c894b54-85f8-44e7-aa56-33015faf2e9e": "TestScores",
+      "a2ac758a-c49f-4611-8343-03f8caddbc9a": "NWEAMAPScores",
+      "897efc4b-e497-4586-bacc-124d1c990374": "iReadyScores",
+      "bc92696c-5a13-437d-8fed-d4bb37c22088": "OtherScores",
+      "dc332818-89c2-4f7d-855a-b15c8982a033": "IEPUpload",
+      "bba634ca-3f1d-44e8-b543-f65fbfc18041": "504Upload",
+      "2ce29a5b-5a0e-461c-ab1b-a02103905efd": "DPSCDEmployee",
+      "2c0b2dde-ec6f-4f2a-ac8b-addad3e35f7a": "DPSCDEmployeeName",
+      "898e8e91-2414-4e5a-b17e-d42b4e0dcd2b": "DPSCDEmployeeID",
+      "668303e7-981d-4f15-a565-040e639449c1": "ParentSignature",
+      "68b581e6-9eee-4a52-92e2-4cc3fe7b5bc7": "CheckYourWork",
+      "b88e0634-bf00-4eb4-ab79-a459ee77cbc1": "SubmissionConfirmation",
+      "73aa19e2-efae-4f66-8e31-6cba4d57b585": "SchoolFull",
+      "54180b48-9a63-4e01-beba-6d6d034060e9": "MontessoriOnly",
+      "2aa92f13-856e-43f4-8829-901aba271bdb": "Round4Update",
+    };
     let questionTitles: { [key: string]: string } = {};
 
     // Set the questionTitles depending on the form
     if (body.formId === "abc92aa5-19e8-4af7-927e-285e1ab2efe6") {
       questionTitles = brigTitles;
-    } else if (body.formId === "7479e087-1f45-4226-b0ca-5c992db20cd8") {
+    } else if (body.formId === "3bd061d2-9d33-40d0-8c14-9ab11983810e") {
       questionTitles = cogatTitles;
     }
 
