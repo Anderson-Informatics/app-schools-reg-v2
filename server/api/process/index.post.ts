@@ -146,8 +146,7 @@ export default defineEventHandler(async (event) => {
       "63d8d522-aba1-443e-9a3d-2b5d0c090cb2": "IEPor504",
       "077ca2d5-1b96-48a6-b6e5-256a67e7c6bc": "DPSCD",
       "e8daf2c9-a764-4998-9bc2-c40f2027ea79": "StudentNumber",
-      "6c72f6de-0e51-4bbe-95ed-3e1993bc6a5c":
-        "Please re-enter the student's DPSCD Student ID number.",
+      "6c72f6de-0e51-4bbe-95ed-3e1993bc6a5c": "StudentNumberRe",
       "4b8e0616-5401-448c-8929-32bfde660a61": "DPSCDSchool",
       "c9a4f05d-c6c1-4483-ab80-e67cf306d514": "SEMCOG",
       "bda45a45-6c8c-4087-9af6-ad18a285e790": "OODSchool",
@@ -156,7 +155,7 @@ export default defineEventHandler(async (event) => {
       "24a99e02-f113-4a16-9fed-798baff2ea25": "FirstChoiceSchool",
       "f8e42050-c8de-4ef4-9eb0-809142e6c438": "SecondChoiceSchool",
       "dba8d3cb-4693-492d-8726-030dfe911927": "ThirdChoiceSchool",
-      "cf9edb6d-9d2e-4bd7-9b9f-6c7fa113ec75": "DescribeSibmings",
+      "cf9edb6d-9d2e-4bd7-9b9f-6c7fa113ec75": "DescribeSiblings",
       "258cd1ca-5e63-4389-a5eb-50db9646d77e": "SiblingAttendingDescription",
       "a7e2b74f-49ee-4461-a49f-8a5d4eb4d642": "SiblingAttendingSchools",
       "e084ecd4-2dc0-487a-8f47-426ec6d1c371": "SiblingEdison",
@@ -172,8 +171,7 @@ export default defineEventHandler(async (event) => {
       "a4b4c1ac-45e4-4048-bd3e-d3417e89abe6": "ExamConfirmation2",
       "c662d859-01b5-45cd-a707-758ae8ebe062": "EdisonAltGradeOption",
       "d85e1a6b-c394-4ed2-8d4d-2760e3b7582f": "ExamConfirmation3",
-      "3751845d-9493-4e7d-9885-4cb6a6ff7ce4":
-        "I have read and understand the FLICS scholar and parent expectations",
+      "3751845d-9493-4e7d-9885-4cb6a6ff7ce4": "FLICSExpectations",
       "d43c2791-cb9d-418d-8914-9d09c5d288fd": "OtherLanguage",
       "d24f58e7-7e46-4255-af35-321274a1c799": "OtherLanguageList",
       "5c15717c-3493-4b1c-9065-64b33e5bf9e0": "LanguageFirstChoice",
