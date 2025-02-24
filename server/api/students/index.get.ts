@@ -6,8 +6,10 @@ export default defineEventHandler(async (event) => {
   await ConnectDB();
   const roster = await StudentModel.find(query, {
     _id: 1,
-    SubmissionID: 1,
-    //submissionIdUnique: 1,
+    submissionIdInt: 1,
+    submissionId: 1,
+    IEP: 1,
+    Session: 1,
     FullName: 1,
     FirstName: 1,
     LastName: 1,
