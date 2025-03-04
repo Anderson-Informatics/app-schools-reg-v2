@@ -2,6 +2,8 @@ export const printLabel = (item: any) => {
   const fname = item.FirstName;
   const lname = item.LastName;
   const subid = item.submissionIdInt;
+  const sheet = item.Data_Sheet;
+  const dob = item.DOB;
 
   const labeltext =
     lname + ", \r\n" + fname + " \r\n \r\nSubmission ID: \r\n" + subid;
@@ -42,9 +44,14 @@ export const printLabel = (item: any) => {
       ",\r\n\
 " +
       fname +
+      "\r\n\
+DOB: " +
+      dob +
+      "\r\n\
+Test: " +
+      sheet +
       '\r\n\
-\r\n\
-Box J - ID #:\r\n\
+Student ID:\r\n\
 </String>\
                 <Attributes>\
                     <Font Family="Arial" Size="12" Bold="False" Italic="False" Underline="False" Strikeout="False" />\
@@ -119,7 +126,7 @@ Box J - ID #:\r\n\
 
     // finally print the label with default print params
     label.print(printerName, "", labelSetBuilder);
-  } catch (e: any) {
+  } catch (e) {
     alert(e.message || e);
   }
 };
