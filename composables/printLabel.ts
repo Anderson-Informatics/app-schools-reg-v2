@@ -7,7 +7,7 @@ export const printLabel = (item: any) => {
 
   const labeltext =
     lname +
-    ", \r\n" +
+    ", " +
     fname +
     " \r\n \r\nDOB: " +
     dob +
@@ -49,8 +49,7 @@ export const printLabel = (item: any) => {
         <Element>\
             <String xml:space="preserve">' +
       lname +
-      ",\r\n\
-" +
+      ", " +
       fname +
       "\r\n\
 DOB: " +
