@@ -3,9 +3,9 @@ export const printIep = (item: any) => {
   const lname = item.LastName;
   const iep = item.IEP;
 
-  if (iep == 'Yes' || iep == 'MLL') {
+  if (iep == "Yes" || iep == "MLL" || iep == "SD") {
     const accommodations = item.Accommodations;
-    const labeltext = lname + ', ' + fname + '\r\n' + accommodations;
+    const labeltext = lname + ", " + fname + "\r\n" + accommodations;
     console.log(labeltext);
     try {
       // open label
@@ -39,10 +39,10 @@ export const printIep = (item: any) => {
     <Element>\
         <String xml:space="preserve">' +
         lname +
-        ', ' +
+        ", " +
         fname +
-        '\
-' +
+        "\
+" +
         accommodations +
         '</String>\
         <Attributes>\
@@ -109,20 +109,20 @@ export const printIep = (item: any) => {
 
       // first label
       var record = labelSetBuilder.addRecord();
-      record.setText('Text', labeltext);
+      record.setText("Text", labeltext);
 
       // select printer to print on
       // for simplicity sake just use the first LabelWriter printer
       var printers = dymo.label.framework.getPrinters();
 
       if (printers.length == 0)
-        throw 'No DYMO printers are installed. Install DYMO printers.';
+        throw "No DYMO printers are installed. Install DYMO printers.";
 
-      var printerName = '';
+      var printerName = "";
       for (var i = 0; i < printers.length; ++i) {
         var printer = printers[i];
         if (
-          printer.printerType == 'LabelWriterPrinter' &&
+          printer.printerType == "LabelWriterPrinter" &&
           printer.isConnected == true
         ) {
           printerName = printer.name;
@@ -130,11 +130,11 @@ export const printIep = (item: any) => {
         }
       }
 
-      if (printerName == '')
-        throw 'No LabelWriter printers found. Install LabelWriter printer';
+      if (printerName == "")
+        throw "No LabelWriter printers found. Install LabelWriter printer";
 
       // finally print the label with default print params
-      label.print(printerName, '', labelSetBuilder);
+      label.print(printerName, "", labelSetBuilder);
     } catch (e: any) {
       alert(e.message || e);
     }
