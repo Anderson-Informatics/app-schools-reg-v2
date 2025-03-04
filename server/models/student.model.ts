@@ -22,6 +22,7 @@ const schema: mongoose.Schema = new mongoose.Schema({
   CheckIn: mongoose.Schema.Types.Mixed,
   AgeEligible: String,
   ExamRequired: Boolean,
+  Accommodations: String,
 });
 
 // roster model

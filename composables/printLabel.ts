@@ -6,7 +6,15 @@ export const printLabel = (item: any) => {
   const dob = item.DOB;
 
   const labeltext =
-    lname + ", \r\n" + fname + " \r\n \r\nSubmission ID: \r\n" + subid;
+    lname +
+    ", \r\n" +
+    fname +
+    " \r\n \r\nDOB: " +
+    dob +
+    "\r\nTest: " +
+    sheet +
+    "\r\nSubmission ID: \r\n" +
+    subid;
   console.log(labeltext);
 
   try {
@@ -126,7 +134,7 @@ Student ID:\r\n\
 
     // finally print the label with default print params
     label.print(printerName, "", labelSetBuilder);
-  } catch (e) {
+  } catch (e: any) {
     alert(e.message || e);
   }
 };

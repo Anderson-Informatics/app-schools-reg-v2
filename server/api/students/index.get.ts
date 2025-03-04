@@ -14,6 +14,9 @@ export default defineEventHandler(async (event) => {
     FirstName: 1,
     LastName: 1,
     CheckIn: 1,
+    Data_Sheet: 1,
+    Accommodations: 1,
+    DOB: 1,
   });
   return roster;
 });

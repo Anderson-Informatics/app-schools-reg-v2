@@ -25,9 +25,22 @@
               <span class="iep">{{ item.IEP }}</span>
             </v-chip>
           </div>
+          <div v-else-if="item.IEP === 'SD'">
+            <v-chip color="primary" dark>
+              <span class="iep">{{ item.IEP }}</span>
+            </v-chip>
+          </div>
           <div v-else>
             <span class="iep">{{ item.IEP }}</span>
           </div>
+        </template>
+        <template v-slot:item.Accommodations="{ item }">
+          <span class="accommodations">{{
+            item.Accommodations
+          }}</span>
+        </template>
+        <template v-slot:item.Data_Sheet="{ item }">
+          <span class="data-sheet">{{ item.Data_Sheet }}</span>
         </template>
         <template v-slot:item.submissionIdInt="{ item }">
           <span class="submission-id">
@@ -40,7 +53,7 @@
         <template v-slot:item.submissionIdUnique="{ item }">
           <span class="submission-id-unique">{{
             item.submissionId
-            }}</span>
+          }}</span>
         </template>
         <template v-slot:item.controls="{ item }">
           <v-btn class="mx-2" fab dark small color="green" @click="
@@ -93,12 +106,12 @@ const headers = [
   { title: 'IEP', key: 'IEP' },
   { title: 'First', key: 'FirstName' },
   { title: 'Last', key: 'LastName' },
-  { title: 'Session', value: 'Session' },
+  { title: 'Session', key: 'Session' },
   { title: 'ID', key: 'submissionIdInt' },
   { title: 'NewID', key: 'submissionId', align: ' d-none' },
   { title: 'Accommodations', key: 'Accommodations', align: ' d-none' },
-  { title: 'Data Sheet', value: "Data_Sheet", align: ' d-none' },
-  { title: 'DOB', value: 'DOB', align: ' d-none' },
+  { title: 'Data Sheet', key: "Data_Sheet", align: ' d-none' },
+  { title: 'DOB', key: 'DOB', align: ' d-none' },
   { title: 'Registration Date', key: 'CheckIn.Date' },
   { title: 'Registration Time', key: 'CheckIn.Time' },
   { title: 'Register', key: 'controls', sortable: false },
@@ -145,6 +158,7 @@ const checkIn = (item: any) => {
 
 const print = (item: any) => {
   if (rePrint) {
+    console.log(item);
     printIep(item);
     printLabel(item);
     //printPhone(item);
