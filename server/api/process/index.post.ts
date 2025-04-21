@@ -21,6 +21,7 @@ export default defineEventHandler(async (event) => {
   interface FormEntry {
     formType: string;
     entry: {
+      completedAt: string;
       fieldData: Array<{
         formFieldId: string;
         options?: string[];
@@ -232,6 +233,22 @@ export default defineEventHandler(async (event) => {
       return each.formType === "initial";
     })[0].entry.fieldData;
 
+    const subdate = response.formEntries.filter((each) => {
+      return each.formType === "initial";
+    })[0].entry.completedAt;
+    // Convert subdate to a date object
+    const subdateFormatted = new Date(subdate);
+
+    // Categroize Round by sub date
+    let round = "";
+    if (subdateFormatted <= new Date("2025-04-20")) {
+      round = "Round 1";
+    } else if (subdateFormatted > new Date("2025-04-20")) {
+      round = "Round 2";
+    } else {
+      round = "";
+    }
+
     let submission: { [key: string]: string } = {};
 
     // This is where the more complicated processing happens
@@ -267,6 +284,8 @@ export default defineEventHandler(async (event) => {
         submission[questionTitles[item.formFieldId]] = item.value ?? "";
       }
     });
+
+    submission = { ...submission, Round: round };
 
     // Return the application data
     return submission;
