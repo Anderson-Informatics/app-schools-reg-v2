@@ -32909,7 +32909,7 @@ function ajaxSync(url, data, method)
 	{
 		url += (query.length ? '?' + query.join('&') : '');
 	}
-	x.open(method || 'GET', url, true);
+	x.open(method || 'GET', url, false);
 
 	if(method == 'POST'){
 		x.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
