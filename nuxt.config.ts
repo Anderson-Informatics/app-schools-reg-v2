@@ -11,7 +11,6 @@ export default defineNuxtConfig({
   build: {
     transpile: ["vuetify"],
   },
-  middleware: ["cors-handler"],
   modules: [
     (_options, nuxt) => {
       nuxt.hooks.hook("vite:extendConfig", (config) => {
