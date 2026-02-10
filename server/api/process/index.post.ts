@@ -233,13 +233,17 @@ export default defineEventHandler(async (event) => {
     )) as SubmissionResponse;
 
     // Extract the "initial" application data (that is all we care about here)
-    const application = response.formEntries.filter((each) => {
+    const initialEntry = response.formEntries.find((each) => {
       return each.formType === "initial";
-    })[0].entry.fieldData;
+    });
 
-    const subdate = response.formEntries.filter((each) => {
-      return each.formType === "initial";
-    })[0].entry.completedAt;
+    if (!initialEntry) {
+      return { message: "Initial form entry not found." };
+    }
+
+    const application = initialEntry.entry.fieldData;
+
+    const subdate = initialEntry.entry.completedAt;
     // Convert subdate to a date object
     const subdateFormatted = new Date(subdate);
 
@@ -259,19 +263,22 @@ export default defineEventHandler(async (event) => {
     let name_field_count = 1; // This is used to sequentially number name fields
     application.forEach((item) => {
       if (item.options) {
-        if (item.options.length === 1) {
-          submission[questionTitles[item.formFieldId]] =
-            answers[item.options[0]];
-        } else if (item.options.length > 1) {
+        const questionKey = questionTitles[item.formFieldId];
+        if (questionKey && item.options.length === 1) {
+          const optionId = item.options[0];
+          if (optionId) {
+            submission[questionKey as string] = answers[optionId] ?? "";
+          }
+        } else if (questionKey && item.options.length > 1) {
           let val = "";
           item.options.forEach((option) => {
             if (val.length === 0) {
-              val = answers[option];
+              val = answers[option] ?? "";
             } else {
-              val = val.concat(";", answers[option]);
+              val = val.concat(";", answers[option] ?? "");
             }
           });
-          submission[questionTitles[item.formFieldId]] = val;
+          submission[questionKey as string] = val;
         }
       } else if (item.fieldType === "address") {
         submission["Address1"] = item.address1 ?? "";
@@ -285,7 +292,10 @@ export default defineEventHandler(async (event) => {
         submission[`LastName${name_field_count}`] = item.lastName ?? "";
         name_field_count++;
       } else if (item.value) {
-        submission[questionTitles[item.formFieldId]] = item.value ?? "";
+        const questionKey = questionTitles[item.formFieldId];
+        if (questionKey) {
+          submission[questionKey] = item.value ?? "";
+        }
       }
     });
 
