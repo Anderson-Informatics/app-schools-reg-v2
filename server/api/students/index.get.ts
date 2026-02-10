@@ -1,4 +1,4 @@
-import { ConnectDB } from "~/utils/db";
+import { ConnectDB } from "~~/server/utils/db";
 import StudentModel from "~~/server/models/student.model";
 
 export default defineEventHandler(async (event) => {

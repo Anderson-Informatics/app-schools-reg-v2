@@ -1,4 +1,4 @@
-import { ConnectDB } from "~/utils/db";
+import { ConnectDB } from "~~/server/utils/db";
 import AppointmentModel from "~~/server/models/appointment.model";
 
 export default defineEventHandler(async (event) => {

@@ -5,7 +5,7 @@ export default defineNuxtConfig({
   compatibilityDate: "2024-11-01",
   devtools: { enabled: true },
   nitro: {
-    plugins: ["~/server/plugins/mongodb.ts"],
+    plugins: ["~~/server/plugins/mongodb.ts"],
   },
   ssr: false,
   build: {
