@@ -86,6 +86,16 @@ export const useSessionStore = defineStore('session-store', {
         console.log(e.message);
       }
     },
+    async deleteSession(sid: String) {
+      try {
+        await $fetch(`/api/sessions/delete`, {
+          method: 'POST',
+          body: { _id: sid },
+        });
+      } catch (e: any) {
+        console.log(e.message);
+      }
+    },
     async startSession(sid: String) {
       // Get the runtimeconfig SUBMITTABLE API KEY
       const API_URL = useRuntimeConfig().API_URL;

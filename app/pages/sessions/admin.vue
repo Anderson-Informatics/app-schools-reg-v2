@@ -208,6 +208,21 @@ const save = async () => {
   close();
 };
 
+const deleteSession = async () => {
+  try {
+    await sessionStore.deleteSession(editedItem.value._id!);
+    sessionStore.sessions = sessionStore.sessions.filter(
+      (s) => s._id !== editedItem.value._id,
+    );
+    text_success.value = "Session deleted successfully!";
+    snackbar.value = true;
+  } catch (error) {
+    console.log(error);
+    snackerror.value = true;
+  }
+  close();
+};
+
 const logout = () => {
   window.localStorage.removeItem("admin_auth");
   navigateTo("/sessions");
@@ -521,6 +536,9 @@ const confirmMove = async () => {
 
                 <v-card-actions>
                   <v-spacer></v-spacer>
+                  <v-btn color="red darken-1" @click="deleteSession"
+                    >Delete</v-btn
+                  >
                   <v-btn color="blue darken-1" @click="close">Cancel</v-btn>
                   <v-btn color="blue darken-1" @click="save">Save</v-btn>
                 </v-card-actions>
