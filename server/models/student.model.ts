@@ -20,6 +20,7 @@ const schema: mongoose.Schema = new mongoose.Schema({
   Exam_Label_Count: Number,
   Group_Label_Count: Number,
   CheckIn: mongoose.Schema.Types.Mixed,
+  TestSession: mongoose.Schema.Types.Mixed,
   AgeEligible: String,
   ExamRequired: Boolean,
   Accommodations: String,

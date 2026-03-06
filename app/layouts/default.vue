@@ -5,8 +5,14 @@
       <v-layout>
         <v-navigation-drawer v-model="drawer" expand-on-hover rail>
           <v-list density="compact" nav>
-            <v-list-item v-for="item in items" :prepend-icon="item.icon" :title="item.title" :value="item.to" router
-              :to="item.to">
+            <v-list-item
+              v-for="item in items"
+              :prepend-icon="item.icon"
+              :title="item.title"
+              :value="item.to"
+              router
+              :to="item.to"
+            >
             </v-list-item>
           </v-list>
         </v-navigation-drawer>
@@ -26,19 +32,24 @@ export default {
       rail: true,
       items: [
         {
-          icon: 'mdi-home-city',
-          title: 'Start Page',
-          to: '/',
+          icon: "mdi-home-city",
+          title: "Start Page",
+          to: "/",
         },
         {
-          icon: 'mdi-alarm',
-          title: 'Status',
-          to: '/status',
+          icon: "mdi-alarm",
+          title: "Status",
+          to: "/status",
         },
         {
-          icon: 'mdi-account-check',
-          title: 'Registration',
-          to: '/registration',
+          icon: "mdi-account-check",
+          title: "Registration",
+          to: "/registration",
+        },
+        {
+          icon: "mdi-clipboard-list",
+          title: "Sessions",
+          to: "/sessions",
         },
       ],
     };

@@ -9,6 +9,7 @@ export default defineEventHandler(async (event) => {
     submissionIdInt: 1,
     submissionId: 1,
     IEP: 1,
+    GradeEntering: 1,
     Session: 1,
     FullName: 1,
     FirstName: 1,

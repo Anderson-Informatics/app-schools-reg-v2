@@ -1,3 +1,26 @@
+<script setup lang="ts">
+import type { DataTableHeader } from "vuetify";
+import type { Student } from "~~/types";
+const studentStore = useStudentStore();
+await useAsyncData("students", () => studentStore.getAll(), {});
+const search = ref("");
+const headers: DataTableHeader[] = [
+  {
+    title: "Name",
+    align: "start",
+    sortable: false,
+    key: "FullName",
+  },
+  { title: "Grade", key: "GradeEntering" },
+  { title: "IEP", key: "IEP" },
+  { title: "Registration Time", key: "CheckIn.Time" },
+  { title: "Test Start", key: "TestSession.start" },
+  { title: "Check Out Time", key: "CheckOut.Time" },
+  //{ title: 'Registered', key: 'CheckIn.Registered' },
+  //{ title: 'Checked Out', key: 'CheckOut.CheckedOut' },
+];
+</script>
+
 <template>
   <v-container>
     <v-card title="Testing Status" flat>
@@ -22,7 +45,7 @@
         :items="studentStore.students"
         :search="search"
       >
-        <template v-slot:item.IEP="{ item }">
+        <template v-slot:item.IEP="{ item }: { item: Student }">
           <div v-if="item.IEP === 'Yes'">
             <v-chip color="warning" dark>
               <span class="iep">{{ item.IEP }}</span>
@@ -49,24 +72,3 @@
     </v-card>
   </v-container>
 </template>
-
-<script setup lang="ts">
-const studentStore = useStudentStore();
-await useAsyncData('students', () => studentStore.getAll(), {});
-const search = ref('');
-const headers = [
-  {
-    title: 'Name',
-    align: 'start',
-    sortable: false,
-    key: 'FullName',
-    groupable: false,
-  },
-  { title: 'IEP', key: 'IEP' },
-  { title: 'Registration Time', key: 'CheckIn.Time', groupable: false },
-  { title: 'Test Start', key: 'TestSession.start', groupable: false },
-  { title: 'Check Out Time', key: 'CheckOut.Time', groupable: false },
-  //{ title: 'Registered', key: 'CheckIn.Registered' },
-  //{ title: 'Checked Out', key: 'CheckOut.CheckedOut' },
-];
-</script>
