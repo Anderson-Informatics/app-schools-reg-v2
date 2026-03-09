@@ -81,4 +81,6 @@ export interface Config {
   group34: boolean;
   group56: boolean;
   group78: boolean;
+  applyLabels: boolean;
+  printLabels: boolean;
 }

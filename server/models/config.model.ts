@@ -15,6 +15,8 @@ const schema: mongoose.Schema = new mongoose.Schema({
   group34: Boolean,
   group56: Boolean,
   group78: Boolean,
+  applyLabels: Boolean,
+  printLabels: Boolean,
 },
 { 
   collection: 'config',

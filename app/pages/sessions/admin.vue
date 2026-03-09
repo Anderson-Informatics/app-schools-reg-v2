@@ -106,11 +106,18 @@ const saveNew = async () => {
 };
 
 const configId = computed(() => configStore.config?._id);
-const editedConfig = ref({ ...configStore.config });
+const buildEditedConfig = () => {
+  const config = { ...configStore.config } as Record<string, any>;
+  if (config.applyLabels === undefined) config.applyLabels = false;
+  if (config.printLabels === undefined) config.printLabels = false;
+  return config;
+};
+
+const editedConfig = ref(buildEditedConfig());
 
 const closeConfig = () => {
   configDialog.value = false;
-  editedConfig.value = { ...configStore.config };
+  editedConfig.value = buildEditedConfig();
 };
 
 const saveConfig = async () => {
@@ -122,7 +129,7 @@ const saveConfig = async () => {
   configDialog.value = false;
 };
 
-const configDisplayNames = {
+const configDisplayNames: Record<string, string> = {
   g2cap: "Grade 2 Capacity",
   g3cap: "Grade 3 Capacity",
   g4cap: "Grade 4 Capacity",
@@ -136,6 +143,8 @@ const configDisplayNames = {
   group34: "Combine Grades 3-4",
   group56: "Combine Grades 5-6",
   group78: "Combine Grades 7-8",
+  applyLabels: "Apply Labels",
+  printLabels: "Print Labels",
 };
 
 const editedItem = ref<Partial<Session>>({
@@ -421,7 +430,9 @@ const confirmMove = async (payload?: { sessionId: string }) => {
                             key !== '_id' &&
                             key !== 'g34cap' &&
                             key !== 'g56cap' &&
-                            key !== 'g78cap'
+                            key !== 'g78cap' &&
+                            key !== 'applyLabels' &&
+                            key !== 'printLabels'
                           "
                           cols="12"
                           sm="12"
@@ -465,6 +476,32 @@ const confirmMove = async (payload?: { sessionId: string }) => {
                           ></v-text-field>
                         </v-col>
                       </template>
+                      <v-col cols="12">
+                        <v-expansion-panels variant="accordion">
+                          <v-expansion-panel title="Advanced Settings">
+                            <v-expansion-panel-text>
+                              <v-switch
+                                v-model="editedConfig.applyLabels"
+                                :label="configDisplayNames.applyLabels"
+                                :color="
+                                  editedConfig.applyLabels
+                                    ? 'primary'
+                                    : undefined
+                                "
+                              ></v-switch>
+                              <v-switch
+                                v-model="editedConfig.printLabels"
+                                :label="configDisplayNames.printLabels"
+                                :color="
+                                  editedConfig.printLabels
+                                    ? 'primary'
+                                    : undefined
+                                "
+                              ></v-switch>
+                            </v-expansion-panel-text>
+                          </v-expansion-panel>
+                        </v-expansion-panels>
+                      </v-col>
                     </v-row>
                   </v-container>
                 </v-card-text>

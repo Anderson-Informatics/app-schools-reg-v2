@@ -4,12 +4,14 @@ import type { DataTableHeader } from "vuetify";
 
 const studentStore = useStudentStore();
 const sessionStore = useSessionStore();
+const configStore = useConfigStore();
 await useAsyncData("students", () => studentStore.getAll(), {});
 await useAsyncData(
   "todays-sessions",
   () => sessionStore.getTodaysSessions(),
   {},
 );
+await useAsyncData("config", () => configStore.getConfig(), {});
 
 const search = ref<string>("");
 const snackbar = ref<boolean>(false);
@@ -62,16 +64,19 @@ const headers: DataTableHeader[] = [
 
 const checkIn = (item: Student) => {
   // Check if the student has already registered then prompt the user to confirm if they want to register again
-  if (typeof item.CheckIn === "object" && item.CheckIn.Registered) {
-    let reRegister = confirm(
-      "This student appears to have already registered, are you sure would like to register this student?",
-    );
-    if (reRegister) {
-    } else {
-      rePrint.value = false;
-      return;
+  if (configStore.config?.printLabels) {
+    if (typeof item.CheckIn === "object" && item.CheckIn.Registered) {
+      let reRegister = confirm(
+        "This student appears to have already registered, are you sure would like to register this student?",
+      );
+      if (reRegister) {
+      } else {
+        rePrint.value = false;
+        return;
+      }
     }
   }
+
   let now = new Date();
   let checkinData = {
     submissionId: item.submissionId,
@@ -111,7 +116,9 @@ const checkIn = (item: Student) => {
     console.log(student);
     if (student) {
       student.CheckIn = checkinData.CheckIn;
-      studentStore.addLabel(item);
+      if (configStore.config?.applyLabels) {
+        studentStore.addLabel(item);
+      }
       registrant.value = item.FullName;
       snackbar.value = true;
     } else {
@@ -151,17 +158,21 @@ const cancelIepSessionSelection = () => {
 };
 
 const print = (item: Student) => {
-  if (["2"].includes(item.GradeEntering)) {
-    return;
-  } else {
-    if (rePrint.value) {
-      console.log(item);
-      printIep(item);
-      printLabel(item);
-      //printPhone(item);
+  if (configStore.config?.printLabels) {
+    if (["2"].includes(item.GradeEntering)) {
+      return;
     } else {
-      rePrint.value = true;
+      if (rePrint.value) {
+        console.log(item);
+        printIep(item);
+        printLabel(item);
+        //printPhone(item);
+      } else {
+        rePrint.value = true;
+      }
     }
+  } else {
+    return;
   }
 };
 </script>
