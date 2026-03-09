@@ -62,16 +62,16 @@ const headers: DataTableHeader[] = [
 
 const checkIn = (item: Student) => {
   // Check if the student has already registered then prompt the user to confirm if they want to register again
-  //if (typeof item.CheckIn === "object" && item.CheckIn.Registered) {
-  //  let reRegister = confirm(
-  //    "This student appears to have already registered, are you sure would like to register this student?",
-  //  );
-  //  if (reRegister) {
-  //  } else {
-  //    rePrint.value = false;
-  //    return;
-  //  }
-  //}
+  if (typeof item.CheckIn === "object" && item.CheckIn.Registered) {
+    let reRegister = confirm(
+      "This student appears to have already registered, are you sure would like to register this student?",
+    );
+    if (reRegister) {
+    } else {
+      rePrint.value = false;
+      return;
+    }
+  }
   let now = new Date();
   let checkinData = {
     submissionId: item.submissionId,
@@ -106,12 +106,12 @@ const checkIn = (item: Student) => {
       }
     }
     const student = studentStore.students.find(
-      (each: Student) => each.submissionId === item.submissionId,
+      (each: any) => each.submissionId === item.submissionId,
     ) as Student | undefined;
     console.log(student);
     if (student) {
       student.CheckIn = checkinData.CheckIn;
-      //studentStore.addLabel(item);
+      studentStore.addLabel(item);
       registrant.value = item.FullName;
       snackbar.value = true;
     } else {
@@ -150,58 +150,18 @@ const cancelIepSessionSelection = () => {
   pendingStudentRegistration.value = null;
 };
 
-const checkInHold = (item: Student) => {
-  if (typeof item.CheckIn === "object" && item.CheckIn.Registered) {
-    let reRegister = confirm(
-      "This student appears to have already registered, are you sure would like to register this student?",
-    );
-    if (reRegister) {
-    } else {
-      rePrint.value = false;
-      return;
-    }
-  }
-  let now = new Date();
-  let checkinData = {
-    submissionId: item.submissionId,
-    submissionIdInt: item.submissionIdInt,
-    CheckIn: {
-      Date: now.toDateString() as string,
-      Time: now.toLocaleTimeString(),
-      Timestamp: now.toISOString(),
-      Registered: true,
-    },
-  };
-  console.log(checkinData);
-  try {
-    studentStore.checkInOne(checkinData);
-    const student = studentStore.students.find(
-      (each: Student) => each.submissionId === item.submissionId,
-    ) as Student | undefined;
-    console.log(student);
-    if (student) {
-      student.CheckIn = checkinData.CheckIn;
-      studentStore.addLabel(item);
-      registrant.value = item.FullName;
-      snackbar.value = true;
-    } else {
-      console.log("Student not found in store after check-in.");
-      snackerror.value = true;
-    }
-  } catch (error) {
-    console.log(error);
-    return (snackerror.value = true);
-  }
-};
-
 const print = (item: Student) => {
-  if (rePrint.value) {
-    console.log(item);
-    printIep(item);
-    printLabel(item);
-    //printPhone(item);
+  if (["2"].includes(item.GradeEntering)) {
+    return;
   } else {
-    rePrint.value = true;
+    if (rePrint.value) {
+      console.log(item);
+      printIep(item);
+      printLabel(item);
+      //printPhone(item);
+    } else {
+      rePrint.value = true;
+    }
   }
 };
 </script>
@@ -284,8 +244,8 @@ const print = (item: Student) => {
             small
             color="green"
             @click="
-              checkIn(item)
-              //print(item);
+              checkIn(item);
+              print(item);
             "
           >
             <v-icon dark>mdi-account-check</v-icon>

@@ -1,21 +1,22 @@
 import { defineStore } from "pinia";
+import type { Student } from "~~/types";
 
 export const useStudentStore = defineStore("student-store", {
   state: () => ({
     // list all results
-    students: [],
-    student: {},
-    registrations: [],
-    summary: [],
+    students: [] as Student[],
+    student: {} as Partial<Student>,
+    registrations: [] as Student[],
+    summary: [] as any[],
   }),
   actions: {
     // Get all results from DB
     async getAll() {
       try {
         let data = await $fetch("/api/students");
-        this.students = data;
+        this.students = data as any;
         return data;
-      } catch (e) {
+      } catch (e: any) {
         console.log(e.message);
       }
     },
@@ -23,13 +24,13 @@ export const useStudentStore = defineStore("student-store", {
       const today = new Date().toDateString();
       try {
         let data = await $fetch(`/api/students?CheckIn.Date=${today}`);
-        this.registrations = data;
+        this.registrations = data as any;
         return data;
       } catch (e: any) {
         console.log(e.message);
       }
     },
-    async checkInOne(checkInData: Object) {
+    async checkInOne(checkInData: any) {
       try {
         let data = await $fetch("/api/students/checkInOne", {
           method: "POST",
@@ -81,7 +82,7 @@ export const useStudentStore = defineStore("student-store", {
     async getSummary() {
       try {
         let data = await $fetch("/api/summary");
-        this.summary = data;
+        this.summary = data as any;
         return data;
       } catch (e: any) {
         console.log(e.message);
