@@ -233,13 +233,6 @@ const moveTargetSessionId = ref<string>("");
 const moveOriginSessionId = ref<string>("");
 const moveStudent = ref<StudentShort | null>(null);
 
-const moveSessionOptions = computed(() =>
-  sessionStore.sessions.map((s) => ({
-    id: s._id,
-    label: `${s.proctor} — Room ${s.room} (${s.grade})`,
-  })),
-);
-
 const openMoveDialog = (item: any) => {
   console.log("Moving student: ", item);
   moveStudent.value = item;
@@ -248,7 +241,10 @@ const openMoveDialog = (item: any) => {
   moveDialog.value = true;
 };
 
-const confirmMove = async () => {
+const confirmMove = async (payload?: { sessionId: string }) => {
+  if (payload?.sessionId) {
+    moveTargetSessionId.value = payload.sessionId;
+  }
   if (!moveStudent.value || !moveTargetSessionId.value) return;
   try {
     await sessionStore.moveStudent({
@@ -606,26 +602,16 @@ const confirmMove = async () => {
         </template>
       </v-data-table>
 
-      <v-dialog v-model="moveDialog" max-width="400px">
-        <v-card>
-          <v-card-title>Move Student</v-card-title>
-          <v-card-text>
-            <v-autocomplete
-              v-model="moveTargetSessionId"
-              :items="moveSessionOptions"
-              item-title="label"
-              item-value="id"
-              label="Select Target Session"
-              variant="outlined"
-            ></v-autocomplete>
-          </v-card-text>
-          <v-card-actions>
-            <v-spacer></v-spacer>
-            <v-btn @click="moveDialog = false">Cancel</v-btn>
-            <v-btn color="primary" @click="confirmMove">Move</v-btn>
-          </v-card-actions>
-        </v-card>
-      </v-dialog>
+      <SessionSelectModal
+        v-model="moveDialog"
+        v-model:selected-session-id="moveTargetSessionId"
+        :sessions="sessionStore.sessions"
+        :exclude-session-id="moveOriginSessionId"
+        title="Move Student"
+        label="Select Target Session"
+        confirm-text="Move"
+        @confirm="confirmMove"
+      />
       <v-snackbar v-model="snackbar" :timeout="timeout" color="green" top>
         {{ text_success }}
 

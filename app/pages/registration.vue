@@ -22,8 +22,8 @@ const headers: DataTableHeader[] = [
     sortable: false,
     value: "FullName",
   },
-  { title: "Grade", value: "GradeEntering" },
-  { title: "IEP", value: "IEP" },
+  { title: "Grade", value: "GradeEntering", sortable: true },
+  { title: "IEP", value: "IEP", sortable: true },
   { title: "First", sortable: true, value: "FirstName" },
   { title: "Last", sortable: true, value: "LastName" },
   { title: "Session", value: "Session" },
@@ -37,8 +37,8 @@ const headers: DataTableHeader[] = [
   { title: "Data Sheet", value: "Data_Sheet", align: " d-none" },
   // @ts-expect-error
   { title: "DOB", value: "DOB", align: " d-none" },
-  { title: "Registration Date", value: "CheckIn.Date" },
-  { title: "Registration Time", value: "CheckIn.Time" },
+  { title: "Registration Date", value: "CheckIn.Date", sortable: true },
+  { title: "Registration Time", value: "CheckIn.Time", sortable: true },
   { title: "Register", value: "controls", sortable: false },
 ];
 
