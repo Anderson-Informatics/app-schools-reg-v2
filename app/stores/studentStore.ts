@@ -53,6 +53,20 @@ export const useStudentStore = defineStore("student-store", {
         console.log(e.message);
       }
     },
+    async addToSelectedSession(payload: {
+      sessionId: string;
+      student: Object;
+    }) {
+      try {
+        let response = await $fetch("/api/sessions/registerSelected", {
+          method: "POST",
+          body: payload,
+        });
+        console.log(response);
+      } catch (e: any) {
+        console.log(e.message);
+      }
+    },
     async addLabel(student: any) {
       try {
         let response = await $fetch("/api/submittable/add", {

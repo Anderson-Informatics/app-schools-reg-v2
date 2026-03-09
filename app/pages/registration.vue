@@ -3,7 +3,13 @@ import type { Student } from "~~/types"; // Adjust the path to where the Student
 import type { DataTableHeader } from "vuetify";
 
 const studentStore = useStudentStore();
+const sessionStore = useSessionStore();
 await useAsyncData("students", () => studentStore.getAll(), {});
+await useAsyncData(
+  "todays-sessions",
+  () => sessionStore.getTodaysSessions(),
+  {},
+);
 
 const search = ref<string>("");
 const snackbar = ref<boolean>(false);
@@ -15,6 +21,18 @@ const text_error = ref<string>(
 );
 const timeout = 3000;
 const rePrint = ref<boolean>(true);
+const sessionSelectDialog = ref(false);
+const selectedSessionId = ref("");
+const pendingStudentRegistration = ref<{
+  submissionId: string;
+  submissionIdInt: string;
+  FullName: string;
+  FirstName: string;
+  LastName: string;
+  GradeEntering: string;
+} | null>(null);
+
+const hasIep = (student: Student) => ["Yes", "MLL", "SD"].includes(student.IEP);
 const headers: DataTableHeader[] = [
   {
     title: "Name",
@@ -79,7 +97,13 @@ const checkIn = (item: Student) => {
         LastName: item.LastName,
         GradeEntering: item.GradeEntering,
       };
-      studentStore.addToSession(studentRegistrationData);
+      if (hasIep(item)) {
+        pendingStudentRegistration.value = studentRegistrationData;
+        selectedSessionId.value = "";
+        sessionSelectDialog.value = true;
+      } else {
+        studentStore.addToSession(studentRegistrationData);
+      }
     }
     const student = studentStore.students.find(
       (each: Student) => each.submissionId === item.submissionId,
@@ -98,6 +122,32 @@ const checkIn = (item: Student) => {
     console.log(error);
     return (snackerror.value = true);
   }
+};
+
+const confirmIepSessionSelection = async (payload: { sessionId: string }) => {
+  if (!pendingStudentRegistration.value || !payload.sessionId) {
+    return;
+  }
+  try {
+    await studentStore.addToSelectedSession({
+      sessionId: payload.sessionId,
+      student: pendingStudentRegistration.value,
+    });
+    await sessionStore.getTodaysSessions();
+  } catch (error) {
+    console.log(error);
+    snackerror.value = true;
+  } finally {
+    sessionSelectDialog.value = false;
+    selectedSessionId.value = "";
+    pendingStudentRegistration.value = null;
+  }
+};
+
+const cancelIepSessionSelection = () => {
+  sessionSelectDialog.value = false;
+  selectedSessionId.value = "";
+  pendingStudentRegistration.value = null;
 };
 
 const checkInHold = (item: Student) => {
@@ -145,7 +195,7 @@ const checkInHold = (item: Student) => {
 };
 
 const print = (item: Student) => {
-  if (rePrint) {
+  if (rePrint.value) {
     console.log(item);
     printIep(item);
     printLabel(item);
@@ -257,5 +307,16 @@ const print = (item: Student) => {
         <v-btn color="white" @click="snackerror = false"> Close </v-btn>
       </template>
     </v-snackbar>
+    <SessionSelectModal
+      v-model="sessionSelectDialog"
+      v-model:selected-session-id="selectedSessionId"
+      :sessions="sessionStore.sessions"
+      :only-open="true"
+      title="Select Session for IEP Student"
+      label="Target Session"
+      confirm-text="Assign"
+      @confirm="confirmIepSessionSelection"
+      @cancel="cancelIepSessionSelection"
+    />
   </v-container>
 </template>
