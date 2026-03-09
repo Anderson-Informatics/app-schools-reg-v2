@@ -5,7 +5,7 @@ const sessionStore = useSessionStore();
 const configStore = useConfigStore();
 await useAsyncData("all-sessions", () => sessionStore.getTodaysSessions(), {});
 await useAsyncData("config", () => configStore.getConfig(), {});
-await useAsyncData("students", () => sessionStore.getTodaysStudents(), {});
+await useAsyncData("registrations", () => sessionStore.getTodaysStudents(), {});
 
 console.log("Config data in admin page: ", configStore.config);
 
@@ -123,8 +123,12 @@ const closeConfig = () => {
 const saveConfig = async () => {
   try {
     await configStore.updateConfig(editedConfig.value);
+    configStore.config = { ...editedConfig.value } as any;
+    text_success.value = "Configuration updated successfully!";
+    snackbar.value = true;
   } catch (error) {
     console.log(error);
+    snackerror.value = true;
   }
   configDialog.value = false;
 };
@@ -278,7 +282,7 @@ const confirmMove = async (payload?: { sessionId: string }) => {
       targetSession.students.push(moveStudent.value!);
     }
     // Update student's sessionLabel in students list
-    const studentInList = sessionStore.students.find(
+    const studentInList = sessionStore.registrations.find(
       (s) => s.submissionId === moveStudent.value!.submissionId,
     );
     if (studentInList && targetSession) {
@@ -621,7 +625,7 @@ const confirmMove = async (payload?: { sessionId: string }) => {
           { title: 'Last', value: 'LastName', align: 'start' },
           { title: 'Move', value: 'move', align: 'center', sortable: false },
         ]"
-        :items="sessionStore.students"
+        :items="sessionStore.registrations"
         class="elevation-1 mt-6"
         item-key="_id"
         :search="search"

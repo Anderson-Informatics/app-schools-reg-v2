@@ -6,7 +6,7 @@ export const useSessionStore = defineStore('session-store', {
     // list all results
     sessions: [] as Session[],
     session: undefined as Session | undefined,
-    students: [] as StudentShort[],
+    registrations: [] as StudentShort[],
   }),
   actions: {
     // Get all results from DB
@@ -37,7 +37,7 @@ export const useSessionStore = defineStore('session-store', {
           timeZone: 'America/Detroit',
         }).format(new Date());
         let data = await $fetch<StudentShort[]>(`/api/sessions/students?date=${today}`);
-        this.students = data;
+        this.registrations = data;
         return data;
       } catch (e: any) {
         console.log(e.message);

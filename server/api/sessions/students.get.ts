@@ -12,7 +12,7 @@ export default defineEventHandler(async (event) => {
         const sessionStudents = (session.students as StudentShort[]).map(student => ({
             ...student,
             sessionId: String(session._id),
-            sessionLabel: `${session.proctor} / ${session.grade}`,
+            sessionLabel: `${session.proctor} — Room ${session.room} (${session.grade})`,
         }));
         students = students.concat(sessionStudents);
     }
