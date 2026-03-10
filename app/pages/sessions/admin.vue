@@ -169,10 +169,11 @@ const headers: Array<{
   { title: "Proctor Name", align: "start", sortable: true, value: "proctor" },
   { title: "Phone", value: "phone", align: "start" },
   { title: "Room #", value: "room", align: "start" },
-  { title: "Grade", value: "grade", align: "start" },
+  { title: "Grade", value: "grade", align: "start", sortable: true },
   { title: "Date", value: "date", align: "start" },
-  { title: "Status", value: "status", align: "start" },
+  { title: "Status", value: "status", align: "start", sortable: true },
   { title: "Students", value: "students.length", align: "start" },
+  { title: "Capacity", value: "capacity", align: "start" },
   { title: "Actions", value: "actions", align: "center", sortable: false },
 ];
 
@@ -588,6 +589,19 @@ const confirmMove = async (payload?: { sessionId: string }) => {
           <nuxt-link :to="`/sessions/${item._id}`" prefetch>{{
             item.proctor
           }}</nuxt-link>
+        </template>
+
+        <template v-slot:[`item.status`]="{ item }">
+          <v-chip
+            :color="item.status === 'Open' ? 'success' : 'error'"
+            variant="tonal"
+            size="small"
+          >
+            <v-icon start size="16">
+              {{ item.status === "Open" ? "mdi-progress-check" : "mdi-lock" }}
+            </v-icon>
+            {{ item.status }}
+          </v-chip>
         </template>
 
         <template v-slot:[`item.actions`]="{ item }">
