@@ -56,6 +56,7 @@ export default defineEventHandler(async (event) => {
     if (!session) {
       const createdSession = await SessionModel.create({
         _id: crypto.randomUUID(),
+        sessionId: 'unassigned',
         proctor: "Unassigned",
         phone: "",
         room: "Unassigned",

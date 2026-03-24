@@ -56,6 +56,7 @@ export interface StudentShort {
 
 export interface Session {
   _id: string;
+  sessionId: string;
   proctor: string;
   phone: string;
   room: string;

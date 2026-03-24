@@ -104,6 +104,18 @@ onUnmounted(() => {
                     sessionStore.session.date
                   }}</v-list-item-subtitle>
                 </v-list-item>
+
+                <v-list-item>
+                  <template #prepend>
+                    <v-icon color="primary">mdi-identifier</v-icon>
+                  </template>
+                  <v-list-item-title class="text-medium-emphasis"
+                    >Session ID</v-list-item-title
+                  >
+                  <v-list-item-subtitle class="text-h6">{{
+                    sessionStore.session.sessionId || "unassigned"
+                  }}</v-list-item-subtitle>
+                </v-list-item>
               </v-list>
             </v-col>
 

@@ -61,6 +61,7 @@ const gradeOptions = [
 
 const newSession = ref<Partial<Session>>({
   _id: crypto.randomUUID(),
+  sessionId: "unassigned",
   proctor: "",
   phone: "",
   room: "",
@@ -78,6 +79,7 @@ const closeCreate = () => {
   createDialog.value = false;
   newSession.value = {
     _id: crypto.randomUUID(),
+    sessionId: "unassigned",
     proctor: "",
     phone: "",
     room: "",
@@ -94,6 +96,9 @@ const closeCreate = () => {
 
 const saveNew = async () => {
   try {
+    if (!newSession.value.sessionId?.trim()) {
+      newSession.value.sessionId = "unassigned";
+    }
     await sessionStore.createSession(newSession.value);
     sessionStore.sessions.push(newSession.value as Session);
     text_success.value = "Session created successfully!";
@@ -371,6 +376,12 @@ const confirmMove = async (payload?: { sessionId: string }) => {
                         <v-text-field
                           v-model="newSession.phone"
                           label="Proctor Phone"
+                        ></v-text-field>
+                      </v-col>
+                      <v-col cols="12" sm="12" md="6">
+                        <v-text-field
+                          v-model="newSession.sessionId"
+                          label="Session ID"
                         ></v-text-field>
                       </v-col>
                       <v-col cols="12" sm="12" md="6">

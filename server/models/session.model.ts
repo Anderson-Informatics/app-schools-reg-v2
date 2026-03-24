@@ -2,6 +2,10 @@ import mongoose from 'mongoose';
 
 const schema: mongoose.Schema = new mongoose.Schema({
   _id: String,
+  sessionId: {
+    type: String,
+    default: 'unassigned',
+  },
   proctor: String,
   phone: String,
   room: String,
