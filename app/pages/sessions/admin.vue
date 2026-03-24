@@ -158,6 +158,7 @@ const configDisplayNames: Record<string, string> = {
 
 const editedItem = ref<Partial<Session>>({
   _id: "",
+  sessionId: "unassigned",
   proctor: "",
   phone: "",
   room: "",
@@ -185,6 +186,7 @@ const headers: Array<{
 const openEdit = (item: Session) => {
   editedItem.value = {
     _id: item._id,
+    sessionId: item.sessionId,
     proctor: item.proctor,
     phone: item.phone,
     room: item.room,
@@ -199,6 +201,7 @@ const close = () => {
   nextTick(() => {
     editedItem.value = {
       _id: "",
+      sessionId: "unassigned",
       proctor: "",
       phone: "",
       room: "",
@@ -210,12 +213,16 @@ const close = () => {
 
 const save = async () => {
   try {
+    if (!editedItem.value.sessionId?.trim()) {
+      editedItem.value.sessionId = "unassigned";
+    }
     console.log("Saving session with data: ", editedItem.value);
     await sessionStore.updateSession(editedItem.value);
     const session = sessionStore.sessions.find(
       (s) => s._id === editedItem.value._id,
     );
     if (session) {
+      session.sessionId = editedItem.value.sessionId ?? "unassigned";
       session.proctor = editedItem.value.proctor ?? "";
       session.phone = editedItem.value.phone ?? "";
       session.room = editedItem.value.room ?? "";
@@ -557,6 +564,12 @@ const confirmMove = async (payload?: { sessionId: string }) => {
                         <v-text-field
                           v-model="editedItem.phone"
                           label="Proctor Phone"
+                        ></v-text-field>
+                      </v-col>
+                      <v-col cols="12" sm="12" md="6">
+                        <v-text-field
+                          v-model="editedItem.sessionId"
+                          label="Session ID"
                         ></v-text-field>
                       </v-col>
                       <v-col cols="12" sm="12" md="6">
