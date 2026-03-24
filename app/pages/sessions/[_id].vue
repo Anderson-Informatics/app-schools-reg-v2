@@ -110,7 +110,7 @@ onUnmounted(() => {
                     <v-icon color="primary">mdi-identifier</v-icon>
                   </template>
                   <v-list-item-title class="text-medium-emphasis"
-                    >Session ID</v-list-item-title
+                    >Session Code</v-list-item-title
                   >
                   <v-list-item-subtitle class="text-h6">{{
                     sessionStore.session.sessionId || "unassigned"

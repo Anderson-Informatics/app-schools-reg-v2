@@ -388,7 +388,7 @@ const confirmMove = async (payload?: { sessionId: string }) => {
                       <v-col cols="12" sm="12" md="6">
                         <v-text-field
                           v-model="newSession.sessionId"
-                          label="Session ID"
+                          label="Session Code"
                         ></v-text-field>
                       </v-col>
                       <v-col cols="12" sm="12" md="6">
