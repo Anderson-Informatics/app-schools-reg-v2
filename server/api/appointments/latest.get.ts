@@ -46,6 +46,7 @@ export default defineEventHandler(async (event) => {
         GradeEntering: { $arrayElemAt: ["$student.GradeEntering", 0] },
         FirstName: { $arrayElemAt: ["$student.FirstName", 0] },
         LastName: { $arrayElemAt: ["$student.LastName", 0] },
+        ParentPhone: { $arrayElemAt: ["$student.ParentPhone", 0] },
       },
     },
     { $project: { _submittedDateForSort: 0, student: 0 } },

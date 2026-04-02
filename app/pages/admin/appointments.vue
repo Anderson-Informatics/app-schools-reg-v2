@@ -4,6 +4,7 @@ interface LatestAppointment {
   submissionId: string;
   FirstName?: string;
   LastName?: string;
+  ParentPhone?: string;
   GradeEntering?: string;
   appointmentDate: string;
   appointmentTime: string;
@@ -316,6 +317,7 @@ const appointmentHeaders: Array<{
   { title: "Link", value: "submissionId", align: "start" },
   { title: "First Name", value: "FirstName", align: "start" },
   { title: "Last Name", value: "LastName", align: "start" },
+  { title: "Phone", value: "ParentPhone", align: "start" },
   { title: "Grade", value: "GradeEntering", align: "start" },
   { title: "Appointment Date", value: "appointmentDate", align: "start" },
   { title: "Appointment Time", value: "appointmentTime", align: "start" },
