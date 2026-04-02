@@ -22,6 +22,27 @@ const selectedAppointmentDate = ref<string>("All");
 const selectedSummaryKey = ref<string | null>(null);
 const latestAppointmentsEndpoint: string = "/api/appointments/latest";
 const hasInitializedDateFilter = ref(false);
+const ADMIN_KW = "AppSchools2026";
+const isAuthenticated = ref(false);
+const kwInput = ref("");
+const kwError = ref(false);
+
+onMounted(() => {
+  const stored = localStorage.getItem("admin_auth");
+  if (stored === ADMIN_KW) {
+    isAuthenticated.value = true;
+  }
+});
+
+const submitkw = () => {
+  if (kwInput.value === ADMIN_KW) {
+    localStorage.setItem("admin_auth", ADMIN_KW);
+    isAuthenticated.value = true;
+    kwError.value = false;
+  } else {
+    kwError.value = true;
+  }
+};
 
 const {
   data: latestAppointmentsData,
@@ -326,98 +347,128 @@ const appointmentHeaders: Array<{
 
 <template>
   <v-container>
-    <v-toolbar flat class="mb-4 px-0">
-      <v-toolbar-title>Appointments (Latest by Submission)</v-toolbar-title>
-      <v-spacer></v-spacer>
-      <NuxtLink to="/admin">
-        <v-btn color="primary" variant="outlined" class="mr-2">
-          <v-icon start>mdi-arrow-left</v-icon>
-          Back to Admin
-        </v-btn>
-      </NuxtLink>
-      <v-btn
-        color="primary"
-        variant="outlined"
-        :loading="pending"
-        @click="refresh"
-      >
-        <v-icon start>mdi-refresh</v-icon>
-        Refresh
-      </v-btn>
-    </v-toolbar>
-
-    <v-row class="mb-6">
-      <v-col cols="12" md="6">
-        <v-select
-          v-model="selectedAppointmentDate"
-          :items="appointmentDateOptions"
-          label="Filter by Appointment Date"
-          variant="outlined"
-          hide-details
-        ></v-select>
+    <v-row
+      v-if="!isAuthenticated"
+      justify="center"
+      align="center"
+      style="min-height: 60vh"
+    >
+      <v-col cols="12" sm="8" md="4">
+        <v-card class="pa-4">
+          <v-card-title class="text-center">Admin Access</v-card-title>
+          <v-card-text>
+            <v-text-field
+              v-model="kwInput"
+              label="Password"
+              type="password"
+              :error-messages="kwError ? 'Incorrect password' : ''"
+              @keyup.enter="submitkw"
+              variant="outlined"
+            ></v-text-field>
+          </v-card-text>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn color="primary" @click="submitkw">Enter</v-btn>
+            <v-spacer></v-spacer>
+          </v-card-actions>
+        </v-card>
       </v-col>
     </v-row>
 
-    <v-alert v-if="error" type="error" class="mb-6" variant="tonal">
-      Failed to load latest appointments.
-    </v-alert>
-
-    <v-data-table
-      :headers="summaryHeaders"
-      :items="summaryRows"
-      item-key="summaryKey"
-      class="elevation-1 mb-6"
-      :loading="pending"
-      :row-props="getSummaryRowProps"
-      @click:row="onSummaryRowClick"
-    >
-      <template v-slot:top>
-        <v-toolbar flat>
-          <v-toolbar-title
-            >Summary by Grade and Appointment Time</v-toolbar-title
-          >
-        </v-toolbar>
-      </template>
-    </v-data-table>
-
-    <v-data-table
-      :headers="appointmentHeaders"
-      :items="detailAppointments"
-      item-key="_id"
-      class="elevation-1"
-      :loading="pending"
-    >
-      <template v-slot:top>
-        <v-toolbar flat>
-          <v-toolbar-title>Latest Appointments</v-toolbar-title>
-          <v-spacer></v-spacer>
-          <v-chip
-            v-if="selectedSummaryKey"
-            color="primary"
-            variant="tonal"
-            class="mr-2"
-          >
-            Filtered by selected summary row
-          </v-chip>
-          <v-btn
-            v-if="selectedSummaryKey"
-            variant="text"
-            @click="clearSummarySelection"
-          >
-            Clear Row Filter
+    <template v-else>
+      <v-toolbar flat class="mb-4 px-0">
+        <v-toolbar-title>Appointments (Latest by Submission)</v-toolbar-title>
+        <v-spacer></v-spacer>
+        <NuxtLink to="/admin">
+          <v-btn color="primary" variant="outlined" class="mr-2">
+            <v-icon start>mdi-arrow-left</v-icon>
+            Back to Admin
           </v-btn>
-        </v-toolbar>
-      </template>
-      <template v-slot:[`item.submissionId`]="{ item }">
-        <a
-          :href="`https://dpscd.submittable.com/submissions/${item.submissionId}`"
-          target="_blank"
-          rel="noopener noreferrer"
+        </NuxtLink>
+        <v-btn
+          color="primary"
+          variant="outlined"
+          :loading="pending"
+          @click="refresh"
         >
-          Open
-        </a>
-      </template>
-    </v-data-table>
+          <v-icon start>mdi-refresh</v-icon>
+          Refresh
+        </v-btn>
+      </v-toolbar>
+
+      <v-row class="mb-6">
+        <v-col cols="12" md="6">
+          <v-select
+            v-model="selectedAppointmentDate"
+            :items="appointmentDateOptions"
+            label="Filter by Appointment Date"
+            variant="outlined"
+            hide-details
+          ></v-select>
+        </v-col>
+      </v-row>
+
+      <v-alert v-if="error" type="error" class="mb-6" variant="tonal">
+        Failed to load latest appointments.
+      </v-alert>
+
+      <v-data-table
+        :headers="summaryHeaders"
+        :items="summaryRows"
+        item-key="summaryKey"
+        class="elevation-1 mb-6"
+        :loading="pending"
+        :row-props="getSummaryRowProps"
+        @click:row="onSummaryRowClick"
+      >
+        <template v-slot:top>
+          <v-toolbar flat>
+            <v-toolbar-title
+              >Summary by Grade and Appointment Time</v-toolbar-title
+            >
+          </v-toolbar>
+        </template>
+      </v-data-table>
+
+      <v-data-table
+        :headers="appointmentHeaders"
+        :items="detailAppointments"
+        item-key="_id"
+        class="elevation-1"
+        :loading="pending"
+      >
+        <template v-slot:top>
+          <v-toolbar flat>
+            <v-toolbar-title>Latest Appointments</v-toolbar-title>
+            <v-spacer></v-spacer>
+            <v-chip
+              v-if="selectedSummaryKey"
+              color="primary"
+              variant="tonal"
+              class="mr-2"
+            >
+              Filtered by selected summary row
+            </v-chip>
+            <v-btn
+              v-if="selectedSummaryKey"
+              variant="text"
+              @click="clearSummarySelection"
+            >
+              Clear Row Filter
+            </v-btn>
+          </v-toolbar>
+        </template>
+        <template v-slot:[`item.submissionId`]="{ item }">
+          <a
+            :href="`https://dpscd.submittable.com/submissions/${item.submissionId}`"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Open
+          </a>
+        </template>
+      </v-data-table>
+    </template>
   </v-container>
 </template>
 
