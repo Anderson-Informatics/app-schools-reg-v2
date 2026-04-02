@@ -85,3 +85,13 @@ export interface Config {
   applyLabels: boolean;
   printLabels: boolean;
 }
+
+export interface Appointment {
+  _id: ObjectId;
+  submissionId: string;
+  appointmentDate: string;
+  appointmentTime: string;
+  dateId: string;
+  groupId: string;
+  submittedDate: string;
+}

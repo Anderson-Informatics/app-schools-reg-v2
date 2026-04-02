@@ -39,7 +39,7 @@ const headers: Array<{
           <v-divider class="mx-4" inset vertical></v-divider>
           <v-spacer></v-spacer>
 
-          <NuxtLink to="/sessions/admin" class="btn btn-primary"
+          <NuxtLink to="/admin" class="btn btn-primary"
             ><v-btn color="primary" variant="outlined" class="mr-4">
               <v-icon left>mdi-cog</v-icon>Admin</v-btn
             ></NuxtLink

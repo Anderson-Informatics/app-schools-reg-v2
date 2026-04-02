@@ -439,6 +439,12 @@ const confirmMove = async (payload?: { sessionId: string }) => {
               <v-icon>mdi-cog</v-icon>
               Config
             </v-btn>
+            <NuxtLink to="/admin/appointments" class="mr-4">
+              <v-btn color="primary" variant="outlined">
+                <v-icon left>mdi-calendar-clock</v-icon>
+                Appointments
+              </v-btn>
+            </NuxtLink>
             <v-dialog v-model="configDialog" max-width="600px">
               <v-card>
                 <v-card-title>
