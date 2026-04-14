@@ -66,7 +66,10 @@ const newSession = ref<Partial<Session>>({
   phone: "",
   room: "",
   date: new Intl.DateTimeFormat("en-US", {
-    dateStyle: "full",
+    weekday: "long",
+    year: "numeric",
+    month: "long",
+    day: "numeric",
     timeZone: "America/Detroit",
   }).format(new Date()),
   status: "",
@@ -84,7 +87,10 @@ const closeCreate = () => {
     phone: "",
     room: "",
     date: new Intl.DateTimeFormat("en-US", {
-      dateStyle: "full",
+      weekday: "long",
+      year: "numeric",
+      month: "long",
+      day: "numeric",
       timeZone: "America/Detroit",
     }).format(new Date()),
     status: "",

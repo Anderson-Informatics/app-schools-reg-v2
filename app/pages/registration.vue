@@ -159,7 +159,7 @@ const cancelIepSessionSelection = () => {
 
 const print = (item: Student) => {
   if (configStore.config?.printLabels) {
-    if (["2"].includes(item.GradeEntering)) {
+    if (["20"].includes(item.GradeEntering)) {
       return;
     } else {
       if (rePrint.value) {
