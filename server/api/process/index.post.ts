@@ -249,9 +249,9 @@ export default defineEventHandler(async (event) => {
 
     // Categroize Round by sub date
     let round = "";
-    if (subdateFormatted <= new Date("2026-04-20")) {
+    if (subdateFormatted <= new Date("2026-04-19")) {
       round = "Round 1";
-    } else if (subdateFormatted > new Date("2026-04-20")) {
+    } else if (subdateFormatted > new Date("2026-04-19")) {
       round = "Round 2";
     } else {
       round = "";

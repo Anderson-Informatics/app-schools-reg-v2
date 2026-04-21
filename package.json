@@ -7,7 +7,9 @@
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "postinstall": "nuxt prepare"
+    "postinstall": "nuxt prepare",
+    "test": "NODE_ENV=test vitest --run",
+    "test:watch": "NODE_ENV=test vitest"
   },
   "dependencies": {
     "@mdi/font": "^7.4.47",
@@ -15,11 +17,19 @@
     "mongoose": "^9.2.0",
     "nuxt": "^4.3.1",
     "pinia": "^3.0.4",
-    "vite": "^7.3.1",
+    "vite": "^8.0.8",
     "vite-plugin-vuetify": "^2.1.0",
     "vue": "latest",
     "vue-router": "latest",
     "vuetify": "^4.0.0"
   },
-  "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e"
+  "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e",
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^6.0.6",
+    "@vue/compiler-sfc": "^3.5.32",
+    "@vue/test-utils": "^2.4.6",
+    "jsdom": "^29.0.2",
+    "mongodb-memory-server": "^11.0.1",
+    "vitest": "^4.1.4"
+  }
 }
